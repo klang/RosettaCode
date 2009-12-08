@@ -33,7 +33,7 @@
 (defmethod integer-length java.math.BigInteger [n]
   (count (. n toString 2)))
 
-;; the version for RosettaCode.org
+;; the version for http://rosettacode.org/wiki/Sierpinski_triangle#Clojure
 ;; print out the result as we go
 (defn sierpinski-triangle [order]
   (loop [side-effect true
