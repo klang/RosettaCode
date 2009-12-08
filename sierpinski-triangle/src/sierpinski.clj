@@ -33,6 +33,18 @@
 (defmethod integer-length java.math.BigInteger [n]
   (count (. n toString 2)))
 
+;; the version for RosettaCode.org
+;; print out the result as we go
+(defn sierpinski-triangle [order]
+  (loop [side-effect true
+	 size (expt 2 order)
+	 v    (expt 2 (- size 1))]
+    (if (not (zero? size))
+      (recur (println (apply str (vec (map #(if (bit-test v %) "*" " ") 
+	     (range 0 (integer-length v) 1))))) 
+	     (dec size) 
+	     (bit-xor (bit-shift-left v 1) (bit-shift-right v 1))))))
+
 ;; lisp     clojure
 ;; ash      bit-shift-left
 ;; logbitp  bit-test
