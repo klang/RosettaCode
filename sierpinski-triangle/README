@@ -4,7 +4,7 @@ cd ~/bin
 wget http://github.com/technomancy/leiningen/raw/stable/bin/lein
 chmod +x lein
 
-cd ~/projects/sierpinski
+cd ~/projects/RosettaCode/sierpinski-triangle
 
 lein deps
 -> in emacs M-x swank-clojure-project
@@ -12,4 +12,4 @@ lein deps
 or simply:
 lein compile
 lein uberjar
-java -jar sierpinski.jar
+java -jar sierpinski.jar {order, default=4}
