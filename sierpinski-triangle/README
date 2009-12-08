@@ -1,0 +1,15 @@
+# http://zef.me/2470/building-clojure-projects-with-leiningen
+
+cd ~/bin
+wget http://github.com/technomancy/leiningen/raw/stable/bin/lein
+chmod +x lein
+
+cd ~/projects/sierpinski
+
+lein deps
+-> in emacs M-x swank-clojure-project
+
+or simply:
+lein compile
+lein uberjar
+java -jar sierpinski.jar
