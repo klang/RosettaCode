@@ -1,8 +1,7 @@
-# http://zef.me/2470/building-clojure-projects-with-leiningen
-
 cd ~/bin
 wget http://github.com/technomancy/leiningen/raw/stable/bin/lein
 chmod +x lein
+lein self-install
 
 cd ~/projects/RosettaCode/sierpinski-triangle
 
