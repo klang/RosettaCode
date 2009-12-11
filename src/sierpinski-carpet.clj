@@ -29,6 +29,8 @@
 ;; # ## ## ## ## ## ## ## ## #
 ;; ###########################
 
+;; development process kept for confusion 
+
 (defn sierpinski-carpet [order] nil)
 
 (defn in-carpet? [x y]
@@ -136,7 +138,7 @@
 					(if (in-carpet? i j) "*" " ")))))))
 
 (use '[clojure.contrib.str-utils :only (str-join)])
-
+;; "(apply str (interpose" is better written as "str-join"
 (defn carpet [n]
   (str-join \newline 
 	    (for [i (range (expt 3 n))] 
@@ -144,3 +146,25 @@
 				(if (in-carpet? i j) "*" " "))))
 	 ))
 
+;;-----------------------------------------------------------------------------
+;; final (based on scheme version)
+;; this version is submitted to RosettaCode.org
+;; http://rosettacode.org/wiki/Sierpinski_carpet#Clojure
+(defn in-carpet? [x y]
+  (loop [x x, y y]
+    (cond (or (zero? x) (zero? y)) 
+	  true
+	  (and (= 1 (mod x 3)) (= 1 (mod y 3))) 
+	  false
+	  :else 
+	  (recur (quot x 3) (quot y 3)))))
+
+(defn sierpinski-carpet [n]
+  (apply str 
+	 (interpose \newline 
+		    (for [i (range (expt 3 n))] 
+		      (apply str (for [j (range (expt 3 n))] 
+					(if (in-carpet? i j) "*" " ")))))))
+
+(print sierpinski-carpet 3)
+;;-----------------------------------------------------------------------------
