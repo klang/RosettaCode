@@ -40,8 +40,8 @@
 	 size (expt 2 order)
 	 v    (expt 2 (- size 1))]
     (if (not (zero? size))
-      (recur (println (apply str (vec (map #(if (bit-test v %) "*" " ") 
-	     (range 0 (integer-length v) 1))))) 
+      (recur (println (apply str (map #(if (bit-test v %) "*" " ") 
+	     (range (integer-length v))))) 
 	     (dec size) 
 	     (bit-xor (bit-shift-left v 1) (bit-shift-right v 1))))))
 
