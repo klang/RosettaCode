@@ -92,6 +92,8 @@
 )
 
 ;; final (based on scheme version)
+;; this version is submitted to RosettaCode.org
+;; http://rosettacode.org/wiki/Sierpinski_carpet#Clojure
 (defn in-carpet? [x y]
   (loop [x x, y y]
     (cond (or (zero? x) (zero? y)) 
@@ -114,3 +116,31 @@
 			      (map #(jline % n) 
 				   (range (expt 3 n)))))))]
     (iline n)))
+
+(use '[clojure.contrib.str-utils :only (str-join)])
+
+(defn carpet [n]
+  (apply str 
+	 (interpose \newline 
+		    (for [i (range (expt 3 n))] 
+		      (apply str (vec (for [j (range (expt 3 n))] 
+					(if (in-carpet? i j) "*" " "))))))))
+
+;; this version is submitted to RosettaCode.org (with in-carpet? above)
+;; http://rosettacode.org/wiki/Sierpinski_carpet#Clojure
+(defn carpet [n]
+  (apply str 
+	 (interpose \newline 
+		    (for [i (range (expt 3 n))] 
+		      (apply str (for [j (range (expt 3 n))] 
+					(if (in-carpet? i j) "*" " ")))))))
+
+(use '[clojure.contrib.str-utils :only (str-join)])
+
+(defn carpet [n]
+  (str-join \newline 
+	    (for [i (range (expt 3 n))] 
+	      (str-join "" (for [j (range (expt 3 n))] 
+				(if (in-carpet? i j) "*" " "))))
+	 ))
+
