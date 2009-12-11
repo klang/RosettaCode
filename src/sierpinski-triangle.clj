@@ -8,9 +8,8 @@
 	 v    (expt 2 (- size 1))]
     (if (zero? size)
       (println (apply str (interpose \newline lines)))
-      (recur (conj lines (apply str (vec 
-				     (map #(if (bit-test v %) "*" " ") 
-					  (range (integer-length v)))))) 
+      (recur (conj lines (apply str (map #(if (bit-test v %) "*" " ") 
+					  (range (integer-length v))))) 
 	     (dec size) 
 	     (bit-xor (bit-shift-left v 1) (bit-shift-right v 1))))))
 
