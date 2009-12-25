@@ -8,3 +8,5 @@
 (.createNewFile (new File (str (File/separator) "output.txt")))
 (.mkdir (new File (str (File/separator) "docs")))
 
+(use 'clojure.contrib.duck-streams)
+(spit  "input.txt"  "")
