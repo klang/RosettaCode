@@ -44,4 +44,17 @@
 				   (if (mandelbrot? (complex x y)) "#" " ")))))))
 (println (mandelbrot))
 
+(defn mandelbrot []
+  (for [y (range 1 -1 -0.05)
+	x (range -2 0.5 0.0315)] 
+    (if (mandelbrot? (complex x y)) "#" " ")))
+
+(println (interpose \newline (map #(apply str %) (partition 80 (mandelbrot)))))
+
+
+(def m (mandelbrot))
+
+(println (interpose \newline (map #(apply str %) (partition 80 m))))
+
+
 ;;;-----
