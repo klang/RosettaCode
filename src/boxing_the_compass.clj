@@ -24,7 +24,9 @@
 	dir  (int (/ (mod (+ angle (/ sep 2)) 360) sep))]
     (capitalize (apply str (map #(unpack %)  (seq (dirs dir)))))))
 
-(print
- (apply str (map #(format "%2s %-18s %7.2f\n"
-			  (+ (mod %1 32) 1) (angle2compass %2) %2)
-		 (iterate inc 0) headings)))
+(comment
+  (print
+   (apply str (map #(format "%2s %-18s %7.2f\n"
+			    (+ (mod %1 32) 1) (angle2compass %2) %2)
+		   (iterate inc 0) headings)))
+)

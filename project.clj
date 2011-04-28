@@ -1,7 +1,7 @@
 (defproject RosettaCode "0.1"
   :description "Translation programming tasks from Rosetta Code. http://rosettacode.org"
   :url "http://github.com/klang/RosettaCode"
-  ;;:jar-behavior :symlink
+  :jar-behavior :symlink
   :dependencies [[org.clojure/clojure "1.2.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
 		 ]
