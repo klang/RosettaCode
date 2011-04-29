@@ -12,5 +12,5 @@ First experiment with self sufficient jar file, executable from the shell.
 
 ## mandelbrot
 
-First experiment with java.awt.Frame. The example shows the progression from the ascii example [submitted](http://rosettacode.org/wiki/Mandelbrot_set#Clojure) an example using one of the coloring functions found on the site. java.awt.Frame is used for the graphics. 
+First experiment with java.awt.Frame. The example shows the progression from the ascii example [submitted](http://rosettacode.org/wiki/Mandelbrot_set#Clojure) to an example using one of the coloring functions found on the site. java.awt.Frame is used for the graphics. 
 
