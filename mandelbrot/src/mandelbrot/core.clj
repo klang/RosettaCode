@@ -4,7 +4,9 @@
 			 [seq-utils :only (indexed)])
         (clojure.contrib.generic [arithmetic :only [+ *]]
                                  [comparison :only [<]]
-                                 [math-functions :only [abs]])))
+                                 [math-functions :only [abs]]))
+  (:import (java.awt Frame Dimension Color)
+	   (java.awt.event WindowEvent WindowAdapter)))
 
 ;; submitted to 
 ;; http://rosettacode.org/wiki/Mandelbrot_set#Clojure
@@ -30,15 +32,13 @@
 
 ;;;----- printed in a java.awt.Frame
 
-;(defonce frame (java.awt.Frame.))
-
-;(.setVisible frame true)
-;(.setSize frame (java.awt.Dimension. (+ 250 3) (+ 200 23)))
-
 (defonce frame
-  (doto (java.awt.Frame.)
+  (doto (Frame.)
     (.setVisible true)
-    (.setSize (java.awt.Dimension. (+ 250 3) (+ 200 23)))))
+    (.setSize (Dimension. (+ 250 3) (+ 200 23)))
+    (.addWindowListener
+	(proxy [WindowAdapter] []
+	  (windowClosing [e] (.dispose frame))))))
 
 (defonce gfx (.getGraphics frame))
 
@@ -46,7 +46,7 @@
 
 (defn- plot [[x y] [r g b]]
   (doto gfx
-    (.setColor (java.awt.Color. r g b))
+    (.setColor (Color. r g b))
     (.fillRect x y 1 1)))
 
 (comment
@@ -85,7 +85,7 @@
   (let [menu-bar-height 23
 	border-width     3]
     (.clearRect gfx 0 0 (+ width border-width) (+ height menu-bar-height))
-    (.setSize frame (java.awt.Dimension. (+ width border-width) (+ height menu-bar-height)))
+    (.setSize frame (Dimension. (+ width border-width) (+ height menu-bar-height)))
     (doseq [[x y v] (mandelbrot width height)]
       (plot (transform x y) [v v v]))))
 
@@ -130,7 +130,7 @@
   (let [menu-bar-height 23
 	border-width     3]
     (.clearRect gfx 0 0 (+ width border-width) (+ height menu-bar-height))
-    (.setSize frame (java.awt.Dimension. (+ width border-width) (+ height menu-bar-height)))
+    (.setSize frame (Dimension. (+ width border-width) (+ height menu-bar-height)))
     (doseq [[x y v] (mandelbrot width height)]
       (plot (transform x y) (colors v)))))
 
