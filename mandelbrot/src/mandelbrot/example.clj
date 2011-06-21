@@ -1,4 +1,4 @@
-(ns mandelbrot.core
+(ns mandelbrot.example
   (:refer-clojure :exclude [+ * <])
   (:use (clojure.contrib complex-numbers
 			 [seq-utils :only (indexed)])
