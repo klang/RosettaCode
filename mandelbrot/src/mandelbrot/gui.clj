@@ -48,6 +48,7 @@
 
 ;; return the number of iterations used or 0 if the limit was passed
 
+
 (defn mandelbrot [width height]
   (for [x (indexed (stepped-range -2  0.5 width))
 	y (indexed (stepped-range  1 -1   height))]
@@ -70,14 +71,21 @@
 	border-width     3]
     (.clearRect gfx 0 0 (+ width border-width) (+ height menu-bar-height))
     (.setSize frame (Dimension. (+ width border-width) (+ height menu-bar-height)))
-    (doseq [[x y v] (mandelbrot width height)]
-      (plot (transform x y) (colors v)))))
+    #_(doseq [[x y v] (mandelbrot width height)]
+      (plot (transform x y) (colors v)))
+    #_(dorun (map (fn [[x y v]] (plot (transform x y) (colors v)))
+		(mandelbrot width height)))
+    (dorun (pmap (fn [[x y v]] (plot (transform x y) (colors v)))
+		(mandelbrot width height)))))
+
 
 (comment
   (draw-mandelbrot 250 200)
   ;; mandelbrot-color.png
   )
 
+;; a different strategy is to separate the production of the canvas points from the
+;; actual calculation, but it is just that; a different equivalent strategy
 
 (defn mandelbrot-points
   "returns the coordinate points for each relative point within a with x height canvas"
@@ -87,14 +95,6 @@
     {:x (second x) :y (second y)
      :rx (first x) :ry (first y)}))
 
-(defn draw-mandelbrot [width height]
-  (let [menu-bar-height 23
-	border-width     3]
-    (.clearRect gfx 0 0 (+ width border-width) (+ height menu-bar-height))
-    (.setSize frame (Dimension. (+ width border-width) (+ height menu-bar-height)))
-    (doseq [[x y v] (mandelbrot width height)]
-      (plot (transform x y) (colors v)))))
-
 (defn mplot
   "returns the relative coordinate and the color value for the plot"
   [{:keys [x y rx ry]}]
@@ -102,11 +102,10 @@
 
 (defn draw-mandelbrot [width height]
   (let [menu-bar-height 23
-	border-width     3
-	mandel-points    (mandelbrot-points width height)]
+	border-width     3]
     (.clearRect gfx 0 0 (+ width border-width) (+ height menu-bar-height))
     (.setSize frame (Dimension. (+ width border-width) (+ height menu-bar-height)))
-    #_(doseq [p mandel-points] (mplot p))
-    #_(dorun (map mplot mandel-points))
-    (dorun (pmap mplot mandel-points))))
+    #_(doseq [p (mandelbrot-points width height)] (mplot p))
+    #_(dorun (map mplot (mandelbrot-points width height)))
+    (dorun (pmap mplot ))))
 
